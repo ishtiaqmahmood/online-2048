@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}
+火车晚点查询--请输入列车班次...
+{% endblock %}
+
+{% block content %}
+
+
+<script src="/static/media/js/Chart.js"></script>
+<div class="container row" style="margin-inside: 50px">
+
+
+    <div class="col-sm-8 container-fluid">
+<canvas id="myChart" width="200" height="120"></canvas>
+        </div>
+</div>
+
+    <script>
+        function DoSubmit(){
+            var input_dict = {};
+            $('input').each(function(){
+                var v = $(this).val().replace(/\s+/g,"");
+                var n = $(this).attr('name');
+                input_dict[n] = v;
+            });
+            if( input_dict["checiIn"]=="") {
+                alert("请输入查询车次！");
+                var chezhanInput = document.getElementById("chezhanInId");
+                chezhanInput.value="";
+                document.getElementById("chezhanInId").focus();
+{#                return false;#}
+            }
+            else
+            $.ajax({
+                url: '/trains/',
+                type: 'POST',
+                data: input_dict,
+                dataType:'json',
+                success: function (result) {
+{#                    var datass = result;#}
+{#                    console.log("车次信息："+ datass.data);#}
+                    if (result.status) {
+{#                        location.href = '/2048';#}
+                        console.log("请求成功！");
+                        var data = result.data;
+                        draw(data);
+                    }
+                    else {
+                        var k = result.message;
+                        var tag = document.createElement('span');
+                        tag.className = 'error-msg';
+                        tag.innerText = k;
+                        $('input[name="' + k + '"]').siblings('span').remove();
+                        $('input[name="' + k + '"]').after(tag);
+                        document.body.appendChild(tag);
+{#                        var chezhanInput = document.getElementById("chezhanInId");#}
+{#                        chezhanInput.value = k;#}
+                    }
+                }
+            })
+        }
+    </script>
+<script>
+                        function draw(data) {
+                          var canvas = document.getElementById('myChart');
+                          if (canvas.getContext){
+                            var ctx = canvas.getContext('2d');
+                            var myLineChart = new Chart(ctx, data);}}
+</script>
+{% endblock %}

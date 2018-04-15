@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <link rel="shortcut icon" href="/static/media/images/favicon2.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="专业查询列车班次/晚点信息服务。">
+	<meta name="keywords" content="火车晚点，列车晚点查询，实时查询">
+    <title>{% block title %}
+    列车晚点查询
+    {% endblock %}	</title>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="/static/media/css/bootstrap.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="/static/media/js/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="/static/media/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+
+<div class="container">
+
+{% include "navi.html" %}
+
+{% block content %}
+    <p>Here is the content!</p>
+{% endblock %}
+{% include "footer.html" %}
+</div>
+</body>
+</html>
